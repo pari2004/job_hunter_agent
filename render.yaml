@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: job-hunter-agent
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /_stcore/health
+    autoDeploy: false
+    disk:
+      name: job-hunter-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_PASSWORD
+        sync: false
+      - key: JOB_HUNTER_DATA_DIR
+        value: /var/data
+      - key: JOB_HUNTER_DB_PATH
+        value: /var/data/jobs.db
